@@ -22,19 +22,16 @@ function handler(req, res) {
       text: feedbackText,
     };
 
-    //store in a db or file
+    // store that in a database or in a file
     const filePath = buildFeedbackPath();
-    const data = extractFeedback();
+    const data = extractFeedback(filePath);
     data.push(newFeedback);
     fs.writeFileSync(filePath, JSON.stringify(data));
     res.status(201).json({ message: 'Success!', feedback: newFeedback });
   } else {
     const filePath = buildFeedbackPath();
     const data = extractFeedback(filePath);
-
-    res.status(200).json({
-      feedback: data,
-    });
+    res.status(200).json({ feedback: data });
   }
 }
 
